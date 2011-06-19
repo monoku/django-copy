@@ -1,0 +1,7 @@
+*.pyc
+*~
+*.project
+.gaedata
+static/.sass-cache
+media/
+_res/css/.sass-cache

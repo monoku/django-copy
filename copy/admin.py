@@ -5,7 +5,7 @@ from django.forms.fields import CharField
 from django.contrib import admin
 #from ckeditor.widgets import CKEditorWidget
 
-from monoku.copy.models import Copy
+from copy.models import Copy
 
 class CopyAdminForm(ModelForm):
     #text = CharField(widget=CKEditorWidget())

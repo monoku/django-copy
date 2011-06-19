@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import linebreaksbr
 
-from monoku.copy.models import Copy
+from copy.models import Copy
 
 register = template.Library()
 
