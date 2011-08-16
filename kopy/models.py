@@ -10,6 +10,9 @@ class Copy(models.Model):
     def __unicode__(self):
         return u'%s' % self.text
 
+    class Meta:
+        app_label = 'copy'
+
 #class CopyTranslation(object):
     #fields = ('text',)
 
