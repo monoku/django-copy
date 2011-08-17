@@ -5,3 +5,7 @@
 static/.sass-cache
 media/
 _res/css/.sass-cache
+build/
+dist/
+kopy.egg-info/
+
