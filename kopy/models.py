@@ -11,7 +11,7 @@ class Copy(models.Model):
         return u'%s' % self.text
 
     class Meta:
-        app_label = 'copy'
+        db_table = 'copy_copy'
 
 #class CopyTranslation(object):
     #fields = ('text',)
