@@ -15,7 +15,7 @@ packages, data_files = [], []
 root_dir = os.path.dirname(__file__)
 if root_dir != '':
     os.chdir(root_dir)
-monoku_dir = 'copy'
+monoku_dir = 'kopy'
 
 for dirpath, dirnames, filenames in os.walk(monoku_dir):
     # Ignore dirnames that start with '.'
@@ -29,12 +29,12 @@ for dirpath, dirnames, filenames in os.walk(monoku_dir):
 #print data_files
 
 setup(
-    name='copy',
+    name='kopy',
     version='0.0.1',
     description='Django app for copies in a website',
     long_description='',
     author='monoku',
-    author_email='todos@monoku.com',
+    author_email='dev@monoku.com',
     url='http://www.monoku.com',
     download_url='http://www.monoku.com/django',
     classifiers=[
