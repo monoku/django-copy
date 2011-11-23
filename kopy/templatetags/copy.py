@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import linebreaksbr
 
-from copy.models import Copy
+from kopy.models import Copy
 
 register = template.Library()
 
