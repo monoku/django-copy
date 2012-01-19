@@ -62,7 +62,14 @@ class CopyNode(template.Node):
                     return linebreaksbr(Copy.objects.get(key=copy).text)
                 return Copy.objects.get(key=copy).text
             except ObjectDoesNotExist:
-                return "The key '%s' doesn't exists in the database, please add it!" % copy
+                if 'default' in kwargs:
+                    txt = kwargs['default']
+                else:
+                    txt = 'Please fill me!!'
+                c = Copy.objects.create(key=copy, text=txt)
+                if self.br:
+                    return linebreaksbr(c.text)
+                return c.text
                 
         except template.VariableDoesNotExist:
             return ''
