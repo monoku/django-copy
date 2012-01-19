@@ -43,8 +43,12 @@ class CopyNode(template.Node):
 
     def __init__(self, copy, **kwargs):
         self.br = None
+        self.default = None
         if 'br' in kwargs:
             self.br = True
+        if 'default' in kwargs:
+            self.default = kwargs['default']
+
         self.is_variable = kwargs.get('is_variable', False)
         if self.is_variable:
             self.copy = template.Variable(copy)
@@ -62,8 +66,8 @@ class CopyNode(template.Node):
                     return linebreaksbr(Copy.objects.get(key=copy).text)
                 return Copy.objects.get(key=copy).text
             except ObjectDoesNotExist:
-                if 'default' in kwargs:
-                    txt = kwargs['default']
+                if self.default:
+                    txt = self.default
                 else:
                     txt = 'Please fill me!!'
                 c = Copy.objects.create(key=copy, text=txt)
