@@ -12,7 +12,10 @@ class Migration(SchemaMigration):
         db.alter_column('copy_copy', 'key', self.gf('django.db.models.fields.CharField')(unique=True, max_length=350))
 
         # Removing index on 'Copy', fields ['key']
-        db.delete_index('copy_copy', ['key'])
+        try:
+            db.delete_index('copy_copy', ['key'])
+        except:
+            pass
 
 
     def backwards(self, orm):
