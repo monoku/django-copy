@@ -4,7 +4,7 @@ from django.db import models
 #from datatrans.utils import register
 
 class Copy(models.Model):
-    key = models.CharField(max_length=350, unique=True, editable=True)
+    key = models.CharField(max_length=500, unique=True, editable=True)
     text = models.TextField()
 
     def __unicode__(self):
