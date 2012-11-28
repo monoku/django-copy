@@ -22,7 +22,11 @@ def split_args(args):
     tag = args[0]
     for arg in args[1:]:
         if '=' in arg:
-            opt, value = arg.split('=')
+            pieces = arg.split('=')
+            if len(pieces) > 2:
+                opt, value = pieces[0], '='.join(pieces[1:])
+            else:
+                opt, value = pieces[0], pieces[1]
             opt = str(opt)
             if value[0]==value[-1] and (value[0]=="'" or value[0]=='"'):
                 kwargs[opt] = value[1:-1]
