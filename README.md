@@ -41,7 +41,7 @@ We encourage you to use [South](http://south.aeracode.org/).
 ## Use it
 
 ```
-	{% copy 'key-name' [ default='html text' ] %}
+{% copy 'key-name' [ default='html text' ] %}
 ```
 
 The default param is optional, here is an example of the usage:
