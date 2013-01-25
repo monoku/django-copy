@@ -40,8 +40,14 @@ We encourage you to use [South](http://south.aeracode.org/).
 
 ## Use it
 
+```
+	{% copy 'key-name' [ default='html text' ] %}
+```
+
+The default param is optional, here is an example of the usage:
+
 ```django
-{% copy 'key-name-in-db' default='this is the default value that will be assigned in the database if no content is related to the key' %}
+{% copy 'key-name' default='the default value that will be assigned in the database if empty' %}
 ```
 
 
