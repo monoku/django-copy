@@ -40,7 +40,7 @@ We encourage you to use [South](http://south.aeracode.org/).
 
 ## Use it
 
-```
+```django
 {% copy 'key-name' [ default='html text' ] %}
 ```
 
