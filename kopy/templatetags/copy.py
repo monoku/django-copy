@@ -6,11 +6,12 @@ from django import template
 from django.template import Variable
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
-from django.template.defaultfilters import linebreaksbr
+from django.template.defaultfilters import linebreaksbr, linebreaks
 
 from kopy.models import Copy
 
 register = template.Library()
+
 
 def split_args(args):
     #TODO hacer mejor y mover:
@@ -28,16 +29,16 @@ def split_args(args):
             else:
                 opt, value = pieces[0], pieces[1]
             opt = str(opt)
-            if value[0]==value[-1] and (value[0]=="'" or value[0]=='"'):
+            if value[0] == value[-1] and (value[0] == "'" or value[0] == '"'):
                 kwargs[opt] = value[1:-1]
-            elif value=='True':
+            elif value == 'True':
                 kwargs[opt] = True
-            elif value=='False':
+            elif value == 'False':
                 kwargs[opt] = False
             else:
                 kwargs[opt] = value
         else:
-            if arg[0]==arg[-1] and (arg[0]=="'" or arg[0]=='"'):
+            if arg[0] == arg[-1] and (arg[0] == "'" or arg[0] == '"'):
                 arg = arg[1:-1]
             opts.append(arg)
     return tag, opts, kwargs
@@ -47,9 +48,12 @@ class CopyNode(template.Node):
 
     def __init__(self, copy, **kwargs):
         self.br = None
+        self.p = None
         self.default = None
         if 'br' in kwargs:
             self.br = True
+        if 'p' in kwargs:
+            self.p = True
         if 'default' in kwargs:
             self.default = kwargs['default']
 
@@ -77,13 +81,16 @@ class CopyNode(template.Node):
                 c = Copy.objects.create(key=copy, text=txt)
                 if self.br:
                     return linebreaksbr(c.text)
+                elif self.p:
+                    return linebreaks(c.text)
                 return c.text
-                
+
         except template.VariableDoesNotExist:
             return ''
+
 
 @register.tag
 def copy(parser, token):
     args = token.split_contents()
     tag, opts, kwargs = split_args(args)
-    return CopyNode(*opts,**kwargs)
+    return CopyNode(*opts, **kwargs)
