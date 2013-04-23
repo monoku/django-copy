@@ -6,7 +6,7 @@ from django import template
 from django.template import Variable
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
-from django.template.defaultfilters import linebreaksbr, linebreaks
+from django.template.defaultfilters import linebreaksbr, linebreaks, title
 
 from kopy.models import Copy
 
@@ -50,10 +50,13 @@ class CopyNode(template.Node):
         self.br = None
         self.p = None
         self.default = None
+        self.title = None
         if 'br' in kwargs:
             self.br = True
         if 'p' in kwargs:
             self.p = True
+        if 'title' in kwargs:
+            self.title = True
         if 'default' in kwargs:
             self.default = kwargs['default']
 
@@ -74,6 +77,8 @@ class CopyNode(template.Node):
                     return linebreaksbr(Copy.objects.get(key=copy).text)
                 elif self.p:
                     return linebreaks(Copy.objects.get(key=copy).text)
+                elif self.title:
+                    return title(Copy.objects.get(key=copy).text)
                 return Copy.objects.get(key=copy).text
             except ObjectDoesNotExist:
                 if self.default:
@@ -85,6 +90,8 @@ class CopyNode(template.Node):
                     return linebreaksbr(c.text)
                 elif self.p:
                     return linebreaks(c.text)
+                elif self.title:
+                    return title(Copy.objects.get(key=copy).text)
                 return c.text
 
         except template.VariableDoesNotExist:
