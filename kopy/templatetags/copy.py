@@ -72,6 +72,8 @@ class CopyNode(template.Node):
             try:
                 if self.br:
                     return linebreaksbr(Copy.objects.get(key=copy).text)
+                elif self.p:
+                    return linebreaks(Copy.objects.get(key=copy).text)
                 return Copy.objects.get(key=copy).text
             except ObjectDoesNotExist:
                 if self.default:
