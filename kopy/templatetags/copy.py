@@ -3,6 +3,7 @@
 import logging
 
 from django import template
+from django.core.urlresolvers import reverse
 from django.template import Variable
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
@@ -72,6 +73,9 @@ class CopyNode(template.Node):
                 copy = self.copy.resolve(context)
             else:
                 copy = self.copy
+            if context['user'].is_staff and context['request'].GET.get('edit_copys'):
+                copy_obj = Copy.objects.get(key=copy)
+                return '<a href="/admin/kopy/copy/%d/" style="text-decoration: underline;" target="_blank">Edit: %s</a>' % (copy_obj.id, copy_obj)
             try:
                 if self.br:
                     return linebreaksbr(Copy.objects.get(key=copy).text)
@@ -98,7 +102,7 @@ class CopyNode(template.Node):
             return ''
 
 
-@register.tag
+@register.tag()
 def copy(parser, token):
     args = token.split_contents()
     tag, opts, kwargs = split_args(args)
